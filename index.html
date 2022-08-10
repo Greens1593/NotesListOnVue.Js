@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Основы Veu</title>
+        <link rel="stylesheet" href="theme.css"/>
+    </head>
+    <body>
+    <div class="container" id="app">
+        <div class="card">
+            <h1>{{title}}</h1>
+            <div class="form-control">
+                <input 
+                type="text" 
+                v-bind:placeholder="placeholderString" 
+                v-bind:value="inputValue"
+                v-on:input="inputChangeHendler"
+                v-on:keypress.enter="addNewNote"
+            />
+            </div>
+            <button class="btn" v-on:click="addNewNote">Добавить</button> 
+            <hr>  
+            <ul class="list">
+                <li class="list-item" v-for="myNote in notes"> 
+                    {{myNote}}
+                    <button class="btn danger" v-on:click="removeNode">Удалить</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="app.js"></script>
+    </body>
+</html>
