@@ -2,7 +2,7 @@ const appElements = {
     data(){
         return {
             title: 'Список заметок',
-            placeholderString: 'Введите заметку',
+            placeholderString: 'Введите заметку. Если количество символов больше 10 заметка добавится автоматически',
             inputValue: '',
             notes: []
         }
@@ -12,13 +12,27 @@ const appElements = {
             this.inputValue = event.target.value
         },
         addNewNote(){
-            this.notes.push(this.inputValue)
-            this.inputValue = ''
-        },
-        removeNode(e){
-            const note = e.target.previousSibling.textContent.split(' ')[0];
-            const index = this.notes.indexOf(note);
+            if(this.inputValue !== ''){
+                this.notes.push(this.inputValue)
+                this.inputValue = ''
+            }},
+        removeNode(index){
             this.notes.splice(index, 1)
+        },
+        toUpperCase(item){
+            return item.toUpperCase()
+        },
+    },
+    computed: { // Свойство модели vue. Отличается от методов тем, что его функции должны возвращать значение + должна быть привязка к элементам из data. Вызывается как обычная переменная т.е. без ()
+        doubleCount(){
+            return this.notes.length * 2 
+        }
+    },
+    watch: {
+        inputValue(value){ // Название должно совпадать с названием переменной из блока data
+            if(value.length === 10){
+                this.addNewNote()
+            }
         }
     }
 }
